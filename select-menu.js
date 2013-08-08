@@ -1,5 +1,5 @@
 /* 
-/ Select menu - 2013 Brett Richards Sanametrix, Inc
+/ Select menu - 2013 Brett Richards
 /
 
 REQUIREMENTS:
