@@ -1,0 +1,131 @@
+﻿/* 
+
+    REM Values based off of 14px html font-size 
+
+*/
+
+div.select-menu-active
+{
+    position: relative;
+    line-height:30px;
+    text-align:left;
+    cursor:pointer;
+    background:#435e84;
+    border: solid 1px #435e84;
+
+    -webkit-transition: border linear .2s, box-shadow linear .2s, background-color linear .2s;
+    -o-transition: border linear .2s, box-shadow linear .2s, background-color linear .2s;
+    -moz-transition:border linear .2s, box-shadow linear .2s, background-color linear .2s;
+    transition: border linear .2s, box-shadow linear .2s, background-color linear .2s;
+}
+
+
+div.select-menu-active:hover
+{
+    background-color: #2e4362;
+    border: solid 1px #2e4362;
+    -webkit-box-shadow: 0 0 6px rgba(0,0,0, 0.4);
+    box-shadow: 0 0 6px rgba(0,0,0, 0.4);
+    outline:0;
+}
+   
+    
+div.select-menu-items
+{
+    position: fixed;
+    line-height:30px;
+    display:none;
+    max-height:300px;
+    overflow-y:auto;
+    text-align:left;
+    z-index:1050;
+
+    background:#fff;
+    border:solid 1px #666;
+}
+
+div.select-menu-active > div
+{
+    display:inline-block;
+    cursor:pointer;
+}
+
+    div.select-menu-active > div:first-child
+    {
+        padding-left: 9px;  
+        padding-left: .643rem;
+        font-weight:600;
+        overflow:hidden;
+        background:#fff;
+    }
+
+    div.select-menu-active > div:last-child
+    {
+        padding-left: 7px;
+        padding-left:.5rem;
+        color:#f0f0f0;
+        width: 17px;
+    }
+
+ul.select-menu-items, ul.select-menu-items-group
+{
+    padding: 0;
+    margin: 3px 0px;
+    margin: .214rem 0rem;
+    list-style: none;
+}
+
+    ul.select-menu-items > li, ul.select-menu-items-group > li
+    {
+        padding-left:7px;
+        padding-left:.5rem;
+        cursor:pointer;
+        border: solid 1px #fff;
+    }
+
+    ul.select-menu-items-group > li
+    {
+        padding-left:14px;
+        padding-left:1rem;
+    }
+
+        ul.select-menu-items > li > i, ul.select-menu-items-group > li > i
+        {
+            color: #999;
+            margin-right: 7px;
+            margin-right: .5rem;
+        }
+
+span.select-menu-items-group
+{
+    margin-left:7px;
+    margin-left:.5rem;
+    font-weight:600;
+    font-size:16px;
+    font-size:1.143rem;
+    color:#435e84;
+}
+
+    span.select-menu-items-group > i
+    {
+        font-size:20px;
+        font-size:1.429rem;
+        position:relative;
+        top:1px;
+        color:#435e84;
+    }
+
+.select-menu-item-hover
+{
+    border-top: 1px solid #435e84;
+    border-bottom: 1px solid #435e84;
+    border-left:1px solid #6283b2;
+    border-right:1px solid #6283b2;
+    background: #6283b2 !important;
+    color: #fff;
+}
+
+.select-menu-icon-hover
+{
+    color: #fff !important;
+}
