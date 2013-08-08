@@ -1,5 +1,5 @@
-/* 
-/ Select menu - 2013 Brett Richards
+﻿/* 
+/ Select menu - 2013 Brett Richards Sanametrix, Inc
 /
 
 REQUIREMENTS:
@@ -16,9 +16,6 @@ Simply call $("select.class").selectMenu({
 options: 
     width: the width of the select box
     menuWidth: the width of the menu with select options
-    activeClass: the class of the "active" selected option
-    itemClass: the class of the dropdown "options" choices
-    hoverClass: the class of the hovered active option
     icon: the class of the icon to use for the "dropdown" opener
 
 NOTE: 
@@ -65,20 +62,19 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
 
             // active div 
             var active = document.createElement("div");
-            active.setAttribute("class", activeDivClass + " " + this.options.activeClass + " ui-corner-all");
+            active.setAttribute("class", activeDivClass + " ui-corner-all");
             active.setAttribute("data-selectmenu", seed);
             active.style.width = this.options.width + "px";
 
             // active "selected item"
             var activeSelection = document.createElement("div");
-            activeSelection.setAttribute("class", "select-list-active-item");
-            activeSelection.style.width = (this.options.width - 32) + "px";
+            activeSelection.setAttribute("class", "select-list-active-item ui-corner-left");
+            activeSelection.style.width = (this.options.width - 36) + "px";
 
             // icon
             var activeIcon = document.createElement("div");
-            activeIcon.setAttribute("class", this.options.activeClass);
-
             var icon = document.createElement("i");
+
             icon.setAttribute("class", this.options.icon);
             
             // append
@@ -88,7 +84,7 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
             
             // items div 
             var items = document.createElement("div");
-            items.setAttribute("class", itemDivClass + " " + this.options.itemClass + " ui-corner-bottom");
+            items.setAttribute("class", itemDivClass + " ui-corner-bottom");
             items.style.width = this.options.menuWidth == null ? this.options.width : this.options.menuWidth + "px";
 
             // items list
@@ -141,7 +137,7 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
                 
                 // add first option value to the active select area
                 if (i == 0) {
-                    activeSelection.appendChild(document.createTextNode(this.element.options[0].text));
+                    activeSelection.appendChild(document.createTextNode(this.element.options[0].text.length == 0 ? String.fromCharCode(160) : this.element.options[0].text));
                 }
             }
 
@@ -168,18 +164,6 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
                 openSelectMenu(target);
             });
 
-            // mouseenter on active area
-            $(target.active).bind("mouseenter", function () {
-                $(target.activeIcon).addClass(target.options.hoverClass);
-                $(this).addClass(target.options.hoverClass);
-            });
-
-            // mouseleave on active area
-            $(target.active).bind("mouseleave", function () {
-                $(target.activeIcon).removeClass(target.options.hoverClass);
-                $(this).removeClass(target.options.hoverClass);
-            });
-            
             var menuItems = $("ul.select-menu-items > li,ul.select-menu-items-group > li");
 
             // click on each item in the items list
@@ -300,12 +284,12 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
     function openSelectMenu(target) {
 
         $(target.active)
-            .removeClass(target.options.hoverClass)
             .removeClass("ui-corner-all")
             .addClass("ui-corner-top");
 
-        $(target.activeIcon)
-            .removeClass(target.options.hoverClass)
+        $(target.activeSelection)
+            .removeClass("ui-corner-left")
+            .addClass("ui-corner-tl");
 
         if ($(target.items).width() > $(target.active).width()) {
             $(target.items).addClass("ui-corner-tr");
@@ -335,6 +319,10 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
         $(target.items).hide("slide", { direction: "up" }, 200, function () {
             $(this).removeClass("ui-corner-tr");
         });
+
+        $(target.activeSelection)
+            .removeClass("ui-corner-tl")
+            .addClass("ui-corner-left");
 
         $(target.active)
             .removeClass("ui-corner-top")
@@ -388,11 +376,8 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
     // defaults
     $.fn.selectMenu.defaults = {
 
-        width: 200,
-        menuWidth: 200,
-        activeClass: "ui-state-light",
-        itemClass: "ui-state-plain",
-        hoverClass: "ui-state-hover",
+        width: 220,
+        menuWidth: 220,
         icon: "icon-chevron-down"
     }
 
