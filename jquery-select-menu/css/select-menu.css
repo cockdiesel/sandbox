@@ -12,7 +12,6 @@ div.select-menu-active
     cursor:pointer;
     background:#435e84;
     border: solid 1px #435e84;
-    /*border-radius:4px;*/  
 
     -webkit-transition: border linear .2s, box-shadow linear .2s, background-color linear .2s;
     -o-transition: border linear .2s, box-shadow linear .2s, background-color linear .2s;
@@ -130,11 +129,3 @@ span.select-menu-items-group
 {
     color: #fff !important;
 }
-
-/* select transition */
-div.select-menu-active
-{
-
-}
-
-
