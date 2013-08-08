@@ -260,16 +260,22 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
 
         _unbindEvents: function () {
 
-            $(this.active).unbind("click");
-            $(this.active).unbind("mouseenter");
-            $(this.active).unbind("mouseleave");
-            $(this.items).children("li").unbind("click");
+            var target = this;
+
+            $(target.active).unbind("click");
+
+            var menuItems = $("ul.select-menu-items > li,ul.select-menu-items-group > li");
+
+            $(menuItems).unbind("click");
+            $(menuItems).unbind("mouseenter");
+            $(menuItems).unbind("mouseleave");
+            $(target.activeIcon).unbind("click");
 
             $(document).unbind("click", function (e) {
                 var parent = $(e.target).parents("div." + activeDivClass).length;
 
-                if (parent == 0) {
-                    closeSelectMenu();
+                if (parent == 0 && e.target.className.indexOf("select-menu-active") == -1) {
+                    closeSelectMenu(target);
                 }
 
             });
@@ -306,18 +312,22 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
         $(target.items)
             .show("slide", { direction: "up" }, 200, function () {
                 var pos = $(selected).position().top;
-
+            
                 if (parseInt(pos) > 260) {
                     $(target.items).scrollTop($(selected).position().top - 60);
                 }
+
+                $(this).css("overflow-y", "auto");
             });
     }
 
     // closes the select menu
     function closeSelectMenu(target) {
 
-        $(target.items).hide("slide", { direction: "up" }, 200, function () {
-            $(this).removeClass("ui-corner-tr");
+        $(target.items)
+            .css("overflow-y","hidden")
+            .hide("slide", { direction: "up" }, 200, function () {
+                $(this).removeClass("ui-corner-tr");
         });
 
         $(target.activeSelection)

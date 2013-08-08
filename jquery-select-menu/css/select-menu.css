@@ -36,7 +36,6 @@ div.select-menu-items
     line-height:30px;
     display:none;
     max-height:300px;
-    overflow-y:auto;
     text-align:left;
     z-index:1050;
 
