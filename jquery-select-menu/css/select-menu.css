@@ -42,8 +42,8 @@ div.select-menu-items
     line-height:30px;
     line-height:2.143rem;
 
-    max-height:300px;
-    max-height:21.429rem;
+    max-height:200px;
+    max-height:14.29rem;
 
     text-align:left;
     z-index:1050;
@@ -69,19 +69,10 @@ div.select-menu-active > div
         white-space:nowrap;
     }
 
-    div.select-menu-active > div:last-child
+    div.select-menu-active > div:last-child > i
     {
-        /*padding-left: 7px;
-        padding-left:.429rem;*/
-        /*padding-right:7px;
-        padding-right:.5rem;*/
-        margin-left:6px;
-        margin-left:.429rem;
-        
-
         color:#f0f0f0;
-        /*border:solid 1px #aaa;*/
-        /*min-width: 1.429rem;*/
+        margin-left: .5rem;
     }
 
 ul.select-menu-items, ul.select-menu-items-group

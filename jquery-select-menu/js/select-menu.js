@@ -4,18 +4,28 @@
 
 REQUIREMENTS:
 
+    jQuery
+    jQueryUI for additional easing (if necessary)
     CSS select-menu.css required.
     Font awesome library required
 
 
-Simply call $("select.class").selectMenu({
-    option: values
-    option2: value
-});
+Simply call: 
+
+    $("select").selectMenu();
+
+Or with options:
+
+    $("select").selectMenu({
+        width: value,
+        menuWidth: value,
+        direction: "up"
+    });
 
 options: 
     width: the width of the select box
     menuWidth: the width of the menu with select options
+    direction: "up" or "down", whichever way the dropdown should open
     icon: the class of the icon to use for the "dropdown" opener
 
 NOTE: 
@@ -23,7 +33,7 @@ NOTE:
     To have an icon show up next to an optgroup, place a font-awesome icon class in the <optgroup>'s class attribute
 
 
-To destroy the plugin call $("select.class").selectMenu("destroy");
+To destroy the plugin call $("select").selectMenu("destroy");
 
 
 */
@@ -62,20 +72,21 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
 
             // hide the select
             this.element.style.visibility = "hidden";
+            this.element.style.display = "none";
+            this.element.style.opacity = 0;
 
             // active div 
             var active = document.createElement("div");
             active.setAttribute("class", activeDivClass + " ui-corner-all");
             active.setAttribute("data-selectmenu", seed);
-            //active.style.width = this.options.width + "px";
+            active.style.width = this.options.width + "px";
             active.style.width = parseFloat(this.options.width / remBase) + "rem";
 
             // active "selected item"
             var activeSelection = document.createElement("div");
             activeSelection.setAttribute("class", "select-list-active-item ui-corner-left");
-            console.log(this.options.width);
-            //activeSelection.style.width = this.options.width + "px";
-            activeSelection.style.width = (parseFloat(this.options.width / remBase) - 2.4) + "rem";
+            activeSelection.style.width = this.options.width + "px";
+            activeSelection.style.width = (parseFloat(this.options.width / remBase) - 2.5) + "rem";
 
             // icon
             var activeIcon = document.createElement("div");
@@ -90,7 +101,7 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
             
             // items div 
             var items = document.createElement("div");
-            items.setAttribute("class", itemDivClass + " ui-corner-bottom");
+            items.setAttribute("class", itemDivClass);
             items.style.width = this.options.menuWidth == null ? this.options.width : this.options.menuWidth + "px";
             items.style.width = this.options.menuWidth == null ? parseFloat(this.options.width / remBase) : parseFloat(this.options.menuWidth / remBase) + "rem";
 
@@ -183,7 +194,7 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
                     target.$element.find("optgroup[label='" + group + "'] option:eq(" + $(this).index() + ")").prop("selected","selected");
                 }
                 else {
-                    console.log($(this));
+
                     var index = $(this).index();
                     var optGroups = $(this).parents("ul:first").children("ul");
                     var options = $(this).parents("ul:first").children("li");
@@ -219,11 +230,9 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
                     }
                     
                     // select the option in the selectlist
-                    console.log(target.$element);
                     target.$element.prop("selectedIndex",index);
                 }
 
-                console.log($(target.activeSelection));
                 $(target.activeSelection).text($(this).text());
 
             });
@@ -297,17 +306,42 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
 
     // opens the select menu
     function openSelectMenu(target) {
+        
+        if (target.options.direction == "down") {
 
-        $(target.active)
-            .removeClass("ui-corner-all")
-            .addClass("ui-corner-top");
+            $(target.active)
+                .removeClass("ui-corner-all")
+                .addClass("ui-corner-top");
 
-        $(target.activeSelection)
-            .removeClass("ui-corner-left")
-            .addClass("ui-corner-tl");
+            $(target.activeSelection)
+                .removeClass("ui-corner-left")
+                .addClass("ui-corner-tl");
 
-        if ($(target.items).width() > $(target.active).width()) {
-            $(target.items).addClass("ui-corner-tr");
+            $(target.items)
+                .addClass("ui-corner-bottom")
+                .css("top", parseInt(Math.ceil($(target.active).position().top),10) + parseInt($(target.active).css("line-height"),10) + 1);
+            
+            if ($(target.items).width() > $(target.active).width()) {
+                $(target.items).addClass("ui-corner-tr");
+            }
+        }
+        else {
+
+            $(target.active)
+                .removeClass("ui-corner-all")
+                .addClass("ui-corner-bottom");
+
+            $(target.activeSelection)
+                .removeClass("ui-corner-left")
+                .addClass("ui-corner-bl");
+
+            $(target.items)
+                .addClass("ui-corner-top")
+                .css("top", parseInt(Math.ceil($(target.active).position().top)) - $(target.items).height() - 1);
+
+            if ($(target.items).width() > $(target.active).width()) {
+                $(target.items).addClass("ui-corner-br");
+            }
         }
 
         // force hover on selected item
@@ -319,7 +353,7 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
 
         // scroll to item
         $(target.items)
-            .show("slide", { direction: "up" }, 200, function () {
+            .show("slide", { direction: target.options.direction == "down" ? "up" : "down" }, 200, function () {
                 var pos = $(selected).position().top;
             
                 if (parseInt(pos) > 260) {
@@ -333,19 +367,38 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
     // closes the select menu
     function closeSelectMenu(target) {
 
-        $(target.items)
-            .css("overflow-y","hidden")
-            .hide("slide", { direction: "up" }, 200, function () {
-                $(this).removeClass("ui-corner-tr");
-        });
+        if (target.options.direction == "down") {
 
-        $(target.activeSelection)
-            .removeClass("ui-corner-tl")
-            .addClass("ui-corner-left");
+            $(target.items)
+                .css("overflow-y", "hidden")
+                .hide("slide", { direction: "up" }, 200, function () {
+                    $(this).removeClass("ui-corner-tr");
+                });
 
-        $(target.active)
-            .removeClass("ui-corner-top")
-            .addClass("ui-corner-all")
+            $(target.activeSelection)
+                .removeClass("ui-corner-tl")
+                .addClass("ui-corner-left");
+
+            $(target.active)
+                .removeClass("ui-corner-top")
+                .addClass("ui-corner-all")
+        }
+        else {
+
+            $(target.items)
+               .css("overflow-y", "hidden")
+               .hide("slide", { direction: "down" }, 200, function () {
+                   $(this).removeClass("ui-corner-br");
+               });
+
+            $(target.activeSelection)
+                .removeClass("ui-corner-bl")
+                .addClass("ui-corner-left");
+
+            $(target.active)
+                .removeClass("ui-corner-bottom")
+                .addClass("ui-corner-all")
+        }
     }
 
     // creates a selectlist item "li"
@@ -397,6 +450,7 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
 
         width: 220,
         menuWidth: 220,
+        direction: "down",
         icon: "icon-chevron-down"
     }
 

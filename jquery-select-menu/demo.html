@@ -12,6 +12,11 @@
     <link href="css/select-menu.css" rel="stylesheet" />
     <link href="css/corners.css" rel="stylesheet" />
     <style>
+        /* 
+            Rem values were calculated against a 14px base font size. If you wish to change the base
+            font size these REM values should scale properly, but you will need to re-calculate pixels.
+            
+        */
         html
         {
             font-family: 'Open Sans';
@@ -41,9 +46,7 @@
 
         div.container
         {
-            border-bottom: solid 1px #999;
-            padding-bottom: 28px;
-            padding-bottom: 2rem;
+            margin-bottom:4rem;
         }
 
     </style>
@@ -56,6 +59,10 @@
 
             $("#dropdown, #dropdown3, #dropdown4, #dropdown5").selectMenu();
 
+            $("#dropup").selectMenu({
+                direction: "up"
+            });
+
             $("#dropdown2").selectMenu({
                 width: 240,
                 menuWidth: 390
@@ -66,77 +73,93 @@
 
 </head>
 <body>
-    <h1>jQuery SelectMenu plugin</h1>
-    <p>Simple to implement, css customization, responsive design</p>
+    
+    <header>
+        <h1>jQuery SelectMenu plugin</h1>
+        <p>Simple to implement, css customization, responsive design</p>
+    </header>
 
-    <h2>Simple Dropdown</h2>
-    <div class="container">
-        <select id="dropdown">
-            <option value=""></option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-        </select>
+    <section>
+        <h2>Simple Dropdown</h2>
+        <div class="container">
+            <select id="dropdown">
+                <option value=""></option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
 
-    </div>
+        </div>
 
-    <br />
+        <h2>Open Upwards</h2>
+        <div class="container">
+            <select id="dropup">
+                <option value=""></option>
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+                <option value="4">Four</option>
+                <option value="5">Five</option>
+            </select>
 
-    <h2>Dropdown with larger menu</h2>
-    <div class="container">
-        <select id="dropdown2">
-            <option value=""></option>
-            <option value="1">One line which has a long option</option>
-            <option value="2">Two choices that have longer options</option>
-            <option value="3">Three pigs in a blanket</option>
-        </select>
-    </div>
+        </div>
 
-    <h2>Dropdown with icons</h2>
-    <div class="container">
-        <select id="dropdown3">
-            <option value=""></option>
-            <option class="icon-gear" value="1">Settings</option>
-            <option class="icon-download-alt" value="2">Download</option>
-            <option class="icon-bitbucket" value="3">Source</option>
-        </select>
-    </div>
+        <h2>Dropdown with larger menu</h2>
+        <div class="container">
+            <select id="dropdown2">
+                <option value=""></option>
+                <option value="1">One line which has a long option</option>
+                <option value="2">Two choices that have longer options</option>
+                <option value="3">Three pigs in a blanket</option>
+            </select>
+        </div>
 
-
-    <h2>Dropdown with option group</h2>
-    <div class="container">
-        <select id="dropdown4">
-            <option value=""></option>
-            <optgroup label="Users">
-                <option>Smith, John</option>
-                <option>Jones, Paul</option>
-                <option>Williams, Bill</option>
-            </optgroup>
-            <optgroup label="Permissions">
-                <option>Read</option>
-                <option>Write</option>
-            </optgroup>
-        </select>
-    </div>
+        <h2>Dropdown with icons</h2>
+        <div class="container">
+            <select id="dropdown3">
+                <option value=""></option>
+                <option class="icon-gear" value="1">Settings</option>
+                <option class="icon-download-alt" value="2">Download</option>
+                <option class="icon-bitbucket" value="3">Source</option>
+            </select>
+        </div>
 
 
-    <h2>Dropdown with option group icons and option icons</h2>
-    <div class="container">
-        <select id="dropdown5">
-            <option value=""></option>
-            <optgroup class="icon-group" label="Users">
-                <option class="icon-user">Smith, John</option>
-                <option class="icon-user">Jones, Paul</option>
-                <option class="icon-user">Williams, Bill</option>
-            </optgroup>
-            <optgroup class="icon-check-sign" label="Permissions">
-                <option class="icon-book">Read</option>
-                <option class="icon-edit">Write</option>
-            </optgroup>
-        </select>
+        <h2>Dropdown with option group</h2>
+        <div class="container">
+            <select id="dropdown4">
+                <option value=""></option>
+                <optgroup label="Users">
+                    <option>Smith, John</option>
+                    <option>Jones, Paul</option>
+                    <option>Williams, Bill</option>
+                </optgroup>
+                <optgroup label="Permissions">
+                    <option>Read</option>
+                    <option>Write</option>
+                </optgroup>
+            </select>
+        </div>
 
-    </div>
 
+        <h2>Dropdown with option group icons and option icons</h2>
+        <div class="container">
+            <select id="dropdown5">
+                <option value=""></option>
+                <optgroup class="icon-group" label="Users">
+                    <option class="icon-user">Smith, John</option>
+                    <option class="icon-user">Jones, Paul</option>
+                    <option class="icon-user">Williams, Bill</option>
+                </optgroup>
+                <optgroup class="icon-check-sign" label="Permissions">
+                    <option class="icon-book">Read</option>
+                    <option class="icon-edit">Write</option>
+                </optgroup>
+            </select>
+
+        </div>
+    </section>
+    <div class="demospace"></div>
 
 </body>
 </html>
