@@ -57,6 +57,9 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
 
         _createElements: function () {
 
+            // get our REM base
+            var remBase = parseInt(window.getComputedStyle(document.getElementsByTagName("html")[0]).fontSize, 10);
+
             // hide the select
             this.element.style.visibility = "hidden";
 
@@ -64,13 +67,15 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
             var active = document.createElement("div");
             active.setAttribute("class", activeDivClass + " ui-corner-all");
             active.setAttribute("data-selectmenu", seed);
-            active.style.width = this.options.width + "px";
+            //active.style.width = this.options.width + "px";
+            active.style.width = parseFloat(this.options.width / remBase) + "rem";
 
             // active "selected item"
             var activeSelection = document.createElement("div");
             activeSelection.setAttribute("class", "select-list-active-item ui-corner-left");
             console.log(this.options.width);
-            activeSelection.style.width = (this.options.width - 36) + "px";
+            //activeSelection.style.width = this.options.width + "px";
+            activeSelection.style.width = (parseFloat(this.options.width / remBase) - 2.4) + "rem";
 
             // icon
             var activeIcon = document.createElement("div");
@@ -87,6 +92,7 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
             var items = document.createElement("div");
             items.setAttribute("class", itemDivClass + " ui-corner-bottom");
             items.style.width = this.options.menuWidth == null ? this.options.width : this.options.menuWidth + "px";
+            items.style.width = this.options.menuWidth == null ? parseFloat(this.options.width / remBase) : parseFloat(this.options.menuWidth / remBase) + "rem";
 
             // items list
             var itemsList = document.createElement("ul");

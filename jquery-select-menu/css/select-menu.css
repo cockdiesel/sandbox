@@ -7,9 +7,13 @@
 div.select-menu-active
 {
     position: relative;
+
     line-height:30px;
+    line-height:2.143rem;
+
     text-align:left;
     cursor:pointer;
+
     background:#435e84;
     border: solid 1px #435e84;
 
@@ -32,10 +36,15 @@ div.select-menu-active:hover
     
 div.select-menu-items
 {
-    position: fixed;
-    line-height:30px;
     display:none;
+    position: absolute;
+    
+    line-height:30px;
+    line-height:2.143rem;
+
     max-height:300px;
+    max-height:21.429rem;
+
     text-align:left;
     z-index:1050;
 
@@ -47,6 +56,7 @@ div.select-menu-active > div
 {
     display:inline-block;
     cursor:pointer;
+    vertical-align:top;
 }
 
     div.select-menu-active > div:first-child
@@ -56,14 +66,22 @@ div.select-menu-active > div
         font-weight:600;
         overflow:hidden;
         background:#fff;
+        white-space:nowrap;
     }
 
     div.select-menu-active > div:last-child
     {
-        padding-left: 7px;
-        padding-left:.5rem;
+        /*padding-left: 7px;
+        padding-left:.429rem;*/
+        /*padding-right:7px;
+        padding-right:.5rem;*/
+        margin-left:6px;
+        margin-left:.429rem;
+        
+
         color:#f0f0f0;
-        width: 17px;
+        /*border:solid 1px #aaa;*/
+        /*min-width: 1.429rem;*/
     }
 
 ul.select-menu-items, ul.select-menu-items-group
@@ -90,7 +108,7 @@ ul.select-menu-items, ul.select-menu-items-group
 
         ul.select-menu-items > li > i, ul.select-menu-items-group > li > i
         {
-            color: #999;
+            color: #777;
             margin-right: 7px;
             margin-right: .5rem;
         }

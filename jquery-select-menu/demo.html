@@ -22,15 +22,21 @@
         h1
         {
             font-size: 28px;
-            font-size: 2rem;
-            margin-top:.5rem;
-            margin-bottom:.5rem;
+            font-size:2rem;
+            margin-top:5px;
+            margin-top:.357rem;
+            margin-bottom:5px;
+            margin-bottom:.357rem;
         }
 
         h2
         {
             font-size: 21px;
             font-size: 1.5rem;
+            margin-top:5px;
+            margin-top:.357rem;
+            margin-bottom:5px;
+            margin-bottom:.357rem;
         }
 
         div.container
@@ -48,11 +54,11 @@
 
         $(document).ready(function () {
 
-            $("#dropdown, #dropdown3, #dropdown4").selectMenu();
+            $("#dropdown, #dropdown3, #dropdown4, #dropdown5").selectMenu();
 
             $("#dropdown2").selectMenu({
-                width: 290,
-                menuWidth: 320
+                width: 240,
+                menuWidth: 390
             });
         });
 
@@ -60,8 +66,10 @@
 
 </head>
 <body>
+    <h1>jQuery SelectMenu plugin</h1>
+    <p>Simple to implement, css customization, responsive design</p>
 
-    <h1>Simple Dropdown</h1>
+    <h2>Simple Dropdown</h2>
     <div class="container">
         <select id="dropdown">
             <option value=""></option>
@@ -74,7 +82,7 @@
 
     <br />
 
-    <h1>Dropdown with larger menu</h1>
+    <h2>Dropdown with larger menu</h2>
     <div class="container">
         <select id="dropdown2">
             <option value=""></option>
@@ -84,7 +92,7 @@
         </select>
     </div>
 
-    <h1>Dropdown with icons</h1>
+    <h2>Dropdown with icons</h2>
     <div class="container">
         <select id="dropdown3">
             <option value=""></option>
@@ -94,9 +102,27 @@
         </select>
     </div>
 
-    <h1>Dropdown with option group and icons</h1>
+
+    <h2>Dropdown with option group</h2>
     <div class="container">
         <select id="dropdown4">
+            <option value=""></option>
+            <optgroup label="Users">
+                <option>Smith, John</option>
+                <option>Jones, Paul</option>
+                <option>Williams, Bill</option>
+            </optgroup>
+            <optgroup label="Permissions">
+                <option>Read</option>
+                <option>Write</option>
+            </optgroup>
+        </select>
+    </div>
+
+
+    <h2>Dropdown with option group icons and option icons</h2>
+    <div class="container">
+        <select id="dropdown5">
             <option value=""></option>
             <optgroup class="icon-group" label="Users">
                 <option class="icon-user">Smith, John</option>
@@ -110,6 +136,7 @@
         </select>
 
     </div>
+
 
 </body>
 </html>
