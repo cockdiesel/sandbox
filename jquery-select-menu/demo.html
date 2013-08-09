@@ -23,6 +23,8 @@
         {
             font-size: 28px;
             font-size: 2rem;
+            margin-top:.5rem;
+            margin-bottom:.5rem;
         }
 
         h2
@@ -30,6 +32,14 @@
             font-size: 21px;
             font-size: 1.5rem;
         }
+
+        div.container
+        {
+            border-bottom: solid 1px #999;
+            padding-bottom: 28px;
+            padding-bottom: 2rem;
+        }
+
     </style>
 
     <script>
@@ -37,7 +47,13 @@
         // jquery UI is included in the demo for the "slide" effect only
 
         $(document).ready(function () {
-            $("#dropdown").selectMenu();
+
+            $("#dropdown, #dropdown3, #dropdown4").selectMenu();
+
+            $("#dropdown2").selectMenu({
+                width: 290,
+                menuWidth: 320
+            });
         });
 
     </script>
@@ -46,7 +62,7 @@
 <body>
 
     <h1>Simple Dropdown</h1>
-    <div>
+    <div class="container">
         <select id="dropdown">
             <option value=""></option>
             <option value="1">One</option>
@@ -58,18 +74,40 @@
 
     <br />
 
+    <h1>Dropdown with larger menu</h1>
+    <div class="container">
+        <select id="dropdown2">
+            <option value=""></option>
+            <option value="1">One line which has a long option</option>
+            <option value="2">Two choices that have longer options</option>
+            <option value="3">Three pigs in a blanket</option>
+        </select>
+    </div>
+
     <h1>Dropdown with icons</h1>
-    <div>
-
+    <div class="container">
+        <select id="dropdown3">
+            <option value=""></option>
+            <option class="icon-gear" value="1">Settings</option>
+            <option class="icon-download-alt" value="2">Download</option>
+            <option class="icon-bitbucket" value="3">Source</option>
+        </select>
     </div>
 
-    <h1>Dropdown with option groups</h1>
-    <div>
-
-    </div>
-
-    <h1>Dropdown with option group icons</h1>
-    <div>
+    <h1>Dropdown with option group and icons</h1>
+    <div class="container">
+        <select id="dropdown4">
+            <option value=""></option>
+            <optgroup class="icon-group" label="Users">
+                <option class="icon-user">Smith, John</option>
+                <option class="icon-user">Jones, Paul</option>
+                <option class="icon-user">Williams, Bill</option>
+            </optgroup>
+            <optgroup class="icon-check-sign" label="Permissions">
+                <option class="icon-book">Read</option>
+                <option class="icon-edit">Write</option>
+            </optgroup>
+        </select>
 
     </div>
 

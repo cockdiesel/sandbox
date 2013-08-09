@@ -69,6 +69,7 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
             // active "selected item"
             var activeSelection = document.createElement("div");
             activeSelection.setAttribute("class", "select-list-active-item ui-corner-left");
+            console.log(this.options.width);
             activeSelection.style.width = (this.options.width - 36) + "px";
 
             // icon
@@ -164,7 +165,7 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
                 openSelectMenu(target);
             });
 
-            var menuItems = $("ul.select-menu-items > li,ul.select-menu-items-group > li");
+            var menuItems = $(target.items).find("ul.select-menu-items > li,ul.select-menu-items-group > li");
 
             // click on each item in the items list
             $(menuItems).bind("click", function () {
@@ -176,7 +177,7 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
                     target.$element.find("optgroup[label='" + group + "'] option:eq(" + $(this).index() + ")").prop("selected","selected");
                 }
                 else {
-
+                    console.log($(this));
                     var index = $(this).index();
                     var optGroups = $(this).parents("ul:first").children("ul");
                     var options = $(this).parents("ul:first").children("li");
@@ -212,9 +213,11 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
                     }
                     
                     // select the option in the selectlist
+                    console.log(target.$element);
                     target.$element.prop("selectedIndex",index);
                 }
 
+                console.log($(target.activeSelection));
                 $(target.activeSelection).text($(this).text());
 
             });
@@ -240,7 +243,7 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
             // icon click close menu if open
             $(target.activeIcon).bind("click", function (e) {
                 if ($(target.items).is(":visible")) {
-                    $(target.items).hide("slide", { direction: "up" }, 200);
+                    closeSelectMenu(target);
                     e.stopImmediatePropagation();
                 }
                 
@@ -264,7 +267,7 @@ To destroy the plugin call $("select.class").selectMenu("destroy");
 
             $(target.active).unbind("click");
 
-            var menuItems = $("ul.select-menu-items > li,ul.select-menu-items-group > li");
+            var menuItems = $(target.items).find("ul.select-menu-items > li,ul.select-menu-items-group > li");
 
             $(menuItems).unbind("click");
             $(menuItems).unbind("mouseenter");
