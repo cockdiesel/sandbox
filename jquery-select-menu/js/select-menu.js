@@ -119,8 +119,8 @@ To destroy the plugin call $("select").selectMenu("destroy");
             // items div 
             var items = document.createElement("div");
             items.setAttribute("class", itemDivClass);
-            items.style.width = (this.options.menuWidth > this.options.width) ? this.options.menuWidth : this.options.width + "px";
-            items.style.width = (this.options.menuWidth > this.options.width) ? parseFloat(this.options.menuWidth / remBase) : parseFloat(this.options.width / remBase) + "rem";
+            items.style.width = (this.options.menuWidth > this.options.width) ? this.options.menuWidth + "px" : this.options.width + "px";
+            items.style.width = (this.options.menuWidth > this.options.width) ? parseFloat(this.options.menuWidth / remBase) + "rem" : parseFloat(this.options.width / remBase) + "rem";
 
             // items list
             var itemsList = document.createElement("ul");
@@ -188,6 +188,13 @@ To destroy the plugin call $("select").selectMenu("destroy");
             this.activeIcon = activeIcon;
             this.items = items;
 
+            // account for scrollbar width
+            var itemCount = this.items.childNodes[0].childNodes.length;
+            var maxHeight = Math.ceil(parseInt($(this.items).css("max-height"), 10));
+            
+            //if (itemCount * Math.ceil(parseInt($(this.active).css("line-height"), 10)) > maxHeight) {
+            //    this.items.style.width = this.items.style.width + 17;
+            //}
         },
 
         _bindEvents: function () {
