@@ -57,7 +57,18 @@
 
         $(document).ready(function () {
 
-            $("#dropdown, #dropdown3, #dropdown4, #dropdown5").selectMenu();
+            $("#dropdown").selectMenu({
+                position:
+                    {
+                        left: 10
+                    },
+                onSelect: function (x) {
+                    console.log(x);
+                }
+
+            });
+                
+            $("#dropdown3, #dropdown4, #dropdown5").selectMenu();
 
             $("#dropup").selectMenu({
                 direction: "up"
@@ -82,12 +93,15 @@
     <section>
         <h2>Simple Dropdown</h2>
         <div class="container">
+            <div style="display:inline-block">Select: </div>
+            <div style="display:inline-block;">
             <select id="dropdown">
                 <option value=""></option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option>
             </select>
+            </div>
 
         </div>
 

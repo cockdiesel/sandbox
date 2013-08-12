@@ -19,14 +19,29 @@ Or with options:
     $("select").selectMenu({
         width: value,
         menuWidth: value,
-        direction: "up"
+        direction: "up",
+        position: {
+            left: 5,
+            top: 10
+        }
+        onSelect: function(option) {
+            // do something with the value selected
+            console.log(option);
+        }
     });
 
 options: 
     width: the width of the select box
+
     menuWidth: the width of the menu with select options
+    
     direction: "up" or "down", whichever way the dropdown should open
+    
+    position: the left and top offsets (if any) to use for the dropdown.  Object {left: int, top: int}
+    
     icon: the class of the icon to use for the "dropdown" opener
+
+    onSelect: a function to call when an option has been selected.  Returns the selected option
 
 NOTE: 
     To have an icon show up next to each option, place a font-awesome icon class in the <option>'s class attribute
@@ -81,6 +96,8 @@ To destroy the plugin call $("select").selectMenu("destroy");
             active.setAttribute("data-selectmenu", seed);
             active.style.width = this.options.width + "px";
             active.style.width = parseFloat(this.options.width / remBase) + "rem";
+            active.style.top = this.options.position.top + "px";
+            active.style.left = this.options.position.left + "px"
 
             // active "selected item"
             var activeSelection = document.createElement("div");
@@ -102,8 +119,8 @@ To destroy the plugin call $("select").selectMenu("destroy");
             // items div 
             var items = document.createElement("div");
             items.setAttribute("class", itemDivClass);
-            items.style.width = this.options.menuWidth == null ? this.options.width : this.options.menuWidth + "px";
-            items.style.width = this.options.menuWidth == null ? parseFloat(this.options.width / remBase) : parseFloat(this.options.menuWidth / remBase) + "rem";
+            items.style.width = (this.options.menuWidth > this.options.width) ? this.options.menuWidth : this.options.width + "px";
+            items.style.width = (this.options.menuWidth > this.options.width) ? parseFloat(this.options.menuWidth / remBase) : parseFloat(this.options.width / remBase) + "rem";
 
             // items list
             var itemsList = document.createElement("ul");
@@ -235,6 +252,9 @@ To destroy the plugin call $("select").selectMenu("destroy");
 
                 $(target.activeSelection).text($(this).text());
 
+                // call option
+                target.options.onSelect.call(this,target.element.options[target.element.options.selectedIndex]);
+
             });
 
             // mouseenter for li + icon
@@ -319,7 +339,10 @@ To destroy the plugin call $("select").selectMenu("destroy");
 
             $(target.items)
                 .addClass("ui-corner-bottom")
-                .css("top", parseInt(Math.ceil($(target.active).position().top),10) + parseInt($(target.active).css("line-height"),10) + 1);
+                .css({
+                    "top": parseInt(Math.ceil($(target.active).position().top), 10) + parseInt($(target.active).css("line-height"), 10) + 1,
+                    "left": parseInt(Math.ceil($(target.active).position().left), 10)
+                });
             
             if ($(target.items).width() > $(target.active).width()) {
                 $(target.items).addClass("ui-corner-tr");
@@ -337,7 +360,11 @@ To destroy the plugin call $("select").selectMenu("destroy");
 
             $(target.items)
                 .addClass("ui-corner-top")
-                .css("top", parseInt(Math.ceil($(target.active).position().top)) - $(target.items).height() - 1);
+                .css({
+                    "top": parseInt(Math.ceil($(target.active).position().top)) - $(target.items).height() - 1,
+                    "left": parseInt(Math.ceil($(target.active).position().left), 10)
+                });
+
 
             if ($(target.items).width() > $(target.active).width()) {
                 $(target.items).addClass("ui-corner-br");
@@ -451,7 +478,13 @@ To destroy the plugin call $("select").selectMenu("destroy");
         width: 220,
         menuWidth: 220,
         direction: "down",
-        icon: "icon-chevron-down"
+        icon: "icon-chevron-down",
+        position:
+            {
+                left: 0,
+                top: 0
+            },
+        onSelect: function () { }
     }
 
 }(jQuery, window, document));

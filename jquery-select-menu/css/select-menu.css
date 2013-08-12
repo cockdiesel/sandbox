@@ -7,7 +7,7 @@
 div.select-menu-active
 {
     position: relative;
-
+       
     line-height:30px;
     line-height:2.143rem;
 
@@ -51,6 +51,14 @@ div.select-menu-items
     background:#fff;
     border:solid 1px #666;
 }
+
+div.select-menu-active, div.select-menu-items
+{
+    font-family: 'Open Sans';
+    font-size: 14px;
+    font-size: 1rem;
+}
+
 
 div.select-menu-active > div
 {
