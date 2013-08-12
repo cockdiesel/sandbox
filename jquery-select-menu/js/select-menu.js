@@ -353,15 +353,15 @@ To destroy the plugin call $("select").selectMenu("destroy");
 
         // scroll to item
         $(target.items)
+            .css("overflow-y", "auto")
             .show("slide", { direction: target.options.direction == "down" ? "up" : "down" }, 200, function () {
                 var pos = $(selected).position().top;
             
-                if (parseInt(pos) > 260) {
+                if (parseInt(pos) > 260 && (target.element.options.selectedIndex != 0)) {
                     $(target.items).scrollTop($(selected).position().top - 60);
                 }
-
-                $(this).css("overflow-y", "auto");
             });
+
     }
 
     // closes the select menu

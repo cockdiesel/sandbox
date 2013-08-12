@@ -81,6 +81,7 @@ ul.select-menu-items, ul.select-menu-items-group
     margin: 3px 0px;
     margin: .214rem 0rem;
     list-style: none;
+    background:#fff;
 }
 
     ul.select-menu-items > li, ul.select-menu-items-group > li
@@ -123,12 +124,12 @@ span.select-menu-items-group
         color:#435e84;
     }
 
-.select-menu-item-hover
+.select-menu-item-hover:not(:first-child)
 {
-    border-top: 1px solid #435e84;
-    border-bottom: 1px solid #435e84;
-    border-left:1px solid #6283b2;
-    border-right:1px solid #6283b2;
+    border-top: 1px solid #2e4362 !important;
+    border-bottom: 1px solid #2e4362 !important;
+    border-left:1px solid #6283b2 !important;
+    border-right:1px solid #6283b2 !important;
     background: #6283b2 !important;
     color: #fff;
 }
