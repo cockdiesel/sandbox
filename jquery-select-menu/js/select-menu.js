@@ -95,7 +95,7 @@ To destroy the plugin call $("select").selectMenu("destroy");
             active.setAttribute("class", activeDivClass + " ui-corner-all");
             active.setAttribute("data-selectmenu", seed);
             active.style.width = this.options.width + "px";
-            active.style.width = parseFloat(this.options.width / remBase) + "rem";
+            active.style.width = Math.ceil(parseFloat(this.options.width / remBase) * 100) / 100 + "rem";
             active.style.top = this.options.position.top + "px";
             active.style.left = this.options.position.left + "px"
 
@@ -103,7 +103,7 @@ To destroy the plugin call $("select").selectMenu("destroy");
             var activeSelection = document.createElement("div");
             activeSelection.setAttribute("class", "select-list-active-item ui-corner-left");
             activeSelection.style.width = this.options.width + "px";
-            activeSelection.style.width = (parseFloat(this.options.width / remBase) - 2.5) + "rem";
+            activeSelection.style.width = (Math.ceil(parseFloat(this.options.width / remBase) * 100) / 100) - 2.5 + "rem";
 
             // icon
             var activeIcon = document.createElement("div");
@@ -119,8 +119,9 @@ To destroy the plugin call $("select").selectMenu("destroy");
             // items div 
             var items = document.createElement("div");
             items.setAttribute("class", itemDivClass);
+
             items.style.width = (this.options.menuWidth > this.options.width) ? this.options.menuWidth + "px" : this.options.width + "px";
-            items.style.width = (this.options.menuWidth > this.options.width) ? parseFloat(this.options.menuWidth / remBase) + "rem" : parseFloat(this.options.width / remBase) + "rem";
+            items.style.width = (this.options.menuWidth > this.options.width) ? Math.ceil(parseFloat(this.options.menuWidth / remBase) * 100) / 100 + "rem" : Math.ceil(parseFloat(this.options.width / remBase) * 100) / 100 + "rem";
 
             // items list
             var itemsList = document.createElement("ul");
@@ -203,8 +204,7 @@ To destroy the plugin call $("select").selectMenu("destroy");
             var maxHeight = parseInt(window.getComputedStyle(this.items).maxHeight, 10);
             
             if ((totalNodes * lineHeight) > maxHeight) {
-                var scrollRem = 1.214;
-                this.items.style.width = parseFloat(this.items.style.width, 10) + 1.214 + "rem";
+                this.items.style.width = parseFloat(this.items.style.width, 10) + (Math.ceil(parseFloat(17/remBase) * 100) / 100) + "rem";
             }
         },
 
@@ -345,6 +345,7 @@ To destroy the plugin call $("select").selectMenu("destroy");
     // opens the select menu
     function openSelectMenu(target) {
         
+        console.log($(target.items).position());
         if (target.options.direction == "down") {
 
             $(target.active)
@@ -358,8 +359,8 @@ To destroy the plugin call $("select").selectMenu("destroy");
             $(target.items)
                 .addClass("ui-corner-bottom")
                 .css({
-                    "top": parseInt(Math.ceil($(target.active).position().top), 10) + parseInt($(target.active).css("line-height"), 10) + 1,
-                    "left": parseInt(Math.ceil($(target.active).position().left), 10)
+                    "top": parseInt($(target.active).position().top, 10) + parseInt($(target.active).css("line-height"), 10) + 1,
+                    "left": parseInt($(target.active).position().left, 10)
                 });
             
             if ($(target.items).width() > $(target.active).width()) {
@@ -379,8 +380,8 @@ To destroy the plugin call $("select").selectMenu("destroy");
             $(target.items)
                 .addClass("ui-corner-top")
                 .css({
-                    "top": parseInt(Math.ceil($(target.active).position().top)) - $(target.items).height() - 1,
-                    "left": parseInt(Math.ceil($(target.active).position().left), 10)
+                    "top": parseInt($(target.active).position().top) - $(target.items).height() - 1,
+                    "left": parseInt($(target.active).position().left, 10)
                 });
 
 
