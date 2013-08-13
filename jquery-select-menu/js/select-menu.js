@@ -126,9 +126,10 @@ To destroy the plugin call $("select").selectMenu("destroy");
             var itemsList = document.createElement("ul");
             itemsList.setAttribute("class",itemDivClass);
             
+            var totalNodes = 0;
+
             for (var i = 0; i < this.element.childNodes.length; i++)
             {
-
                 var node = this.element.childNodes[i];
                 var nodeName = node.nodeName.toLowerCase();
                 
@@ -148,6 +149,7 @@ To destroy the plugin call $("select").selectMenu("destroy");
                     var groupLabel = document.createTextNode(node.getAttribute("label"));
                     groupLabelElement.setAttribute("class", "select-menu-items-group");
                     groupLabelElement.appendChild(groupLabel);
+                    totalNodes++;
 
                     // create icon
                     var itemIcon;
@@ -160,6 +162,10 @@ To destroy the plugin call $("select").selectMenu("destroy");
 
                     for (var o = 0; o < node.childNodes.length; o++) {
                         createItem(group, node.childNodes[o]);
+
+                        if (node.childNodes[o].value != "" && node.childNodes[o].value != null && node.childNodes[o].value != undefined) {
+                            totalNodes++;
+                        }
                     }
 
                     // append option group to main list
@@ -168,6 +174,10 @@ To destroy the plugin call $("select").selectMenu("destroy");
                 }
                 else if (nodeName == "option") {
                     createItem(itemsList, node);
+
+                    if (node.value != "" && node.value != null && node.value != undefined) {
+                        totalNodes++;
+                    }
                 }
                 
                 // add first option value to the active select area
@@ -189,12 +199,13 @@ To destroy the plugin call $("select").selectMenu("destroy");
             this.items = items;
 
             // account for scrollbar width
-            var itemCount = this.items.childNodes[0].childNodes.length;
-            var maxHeight = Math.ceil(parseInt($(this.items).css("max-height"), 10));
+            var lineHeight = parseInt(window.getComputedStyle(this.active).lineHeight, 10);
+            var maxHeight = parseInt(window.getComputedStyle(this.items).maxHeight, 10);
             
-            //if (itemCount * Math.ceil(parseInt($(this.active).css("line-height"), 10)) > maxHeight) {
-            //    this.items.style.width = this.items.style.width + 17;
-            //}
+            if ((totalNodes * lineHeight) > maxHeight) {
+                var scrollRem = 1.214;
+                this.items.style.width = parseFloat(this.items.style.width, 10) + 1.214 + "rem";
+            }
         },
 
         _bindEvents: function () {
