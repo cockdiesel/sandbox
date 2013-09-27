@@ -92,7 +92,7 @@ To destroy the plugin call $("select").selectMenu("destroy");
 
             // active div 
             var active = document.createElement("div");
-            active.setAttribute("class", activeDivClass + " ui-corner-all");
+            active.setAttribute("class", activeDivClass + " corner-all");
             active.setAttribute("data-selectmenu", seed);
             active.style.width = this.options.width + "px";
             active.style.width = parseFloat(this.options.width / remBase) + "rem";
@@ -101,7 +101,7 @@ To destroy the plugin call $("select").selectMenu("destroy");
 
             // active "selected item"
             var activeSelection = document.createElement("div");
-            activeSelection.setAttribute("class", "select-list-active-item ui-corner-left");
+            activeSelection.setAttribute("class", "select-list-active-item corner-left");
             activeSelection.style.width = this.options.width + "px";
             activeSelection.style.width = (parseFloat(this.options.width / remBase) - 2.5) + "rem";
 
@@ -119,6 +119,8 @@ To destroy the plugin call $("select").selectMenu("destroy");
             // items div 
             var items = document.createElement("div");
             items.setAttribute("class", itemDivClass);
+            
+
             items.style.width = (this.options.menuWidth > this.options.width) ? this.options.menuWidth + "px" : this.options.width + "px";
             items.style.width = (this.options.menuWidth > this.options.width) ? parseFloat(this.options.menuWidth / remBase) + "rem" : parseFloat(this.options.width / remBase) + "rem";
 
@@ -141,7 +143,7 @@ To destroy the plugin call $("select").selectMenu("destroy");
                     group.setAttribute("optgroup", node.getAttribute("label"));
 
                     // check for icon
-                    var icon = node.getAttribute("class");
+                    var iconClass = node.getAttribute("class");
 
                     // create span
                     var groupLabelElement = document.createElement("span");
@@ -152,9 +154,9 @@ To destroy the plugin call $("select").selectMenu("destroy");
                     // create icon
                     var itemIcon;
 
-                    if (icon != null) {
+                    if (iconClass != null) {
                         itemIcon = document.createElement("i");
-                        itemIcon.setAttribute("class", icon + " icon-fixed-width");
+                        itemIcon.setAttribute("class", iconClass + " icon-fixed-width");
                         groupLabelElement.insertBefore(itemIcon, groupLabel);
                     }
 
@@ -187,14 +189,6 @@ To destroy the plugin call $("select").selectMenu("destroy");
             this.activeSelection = activeSelection;
             this.activeIcon = activeIcon;
             this.items = items;
-
-            // account for scrollbar width
-            var itemCount = this.items.childNodes[0].childNodes.length;
-            var maxHeight = Math.ceil(parseInt($(this.items).css("max-height"), 10));
-            
-            //if (itemCount * Math.ceil(parseInt($(this.active).css("line-height"), 10)) > maxHeight) {
-            //    this.items.style.width = this.items.style.width + 17;
-            //}
         },
 
         _bindEvents: function () {
@@ -260,7 +254,7 @@ To destroy the plugin call $("select").selectMenu("destroy");
                 $(target.activeSelection).text($(this).text());
 
                 // call option
-                target.options.onSelect.call(this,target.element.options[target.element.options.selectedIndex]);
+                target.options.onSelect.call(this, target.element.options[target.element.options.selectedIndex]);
 
             });
 
@@ -334,39 +328,47 @@ To destroy the plugin call $("select").selectMenu("destroy");
     // opens the select menu
     function openSelectMenu(target) {
         
+        // close any open menus
+        if ($("div.select-menu-items").is(":visible")) {
+            $("div.select-menu-items").hide("slide", { direction: 'up' }, 200);
+        }
+        
         if (target.options.direction == "down") {
 
             $(target.active)
-                .removeClass("ui-corner-all")
-                .addClass("ui-corner-top");
+                .removeClass("corner-all")
+                .addClass("corner-top");
 
             $(target.activeSelection)
-                .removeClass("ui-corner-left")
-                .addClass("ui-corner-tl");
+                .removeClass("corner-left")
+                .addClass("corner-tl");
 
+            console.log($(target.items));
             $(target.items)
-                .addClass("ui-corner-bottom")
+                .addClass("corner-bottom")
                 .css({
                     "top": parseInt(Math.ceil($(target.active).position().top), 10) + parseInt($(target.active).css("line-height"), 10) + 1,
-                    "left": parseInt(Math.ceil($(target.active).position().left), 10)
+                    "left": Math.round($(target.active).position().left * 100) / 100,
+                    "max-height": target.options.height + "px",
+                    "max-height": parseInt(target.options.height / 14) + "rem"
                 });
             
             if ($(target.items).width() > $(target.active).width()) {
-                $(target.items).addClass("ui-corner-tr");
+                $(target.items).addClass("corner-tr");
             }
         }
         else {
 
             $(target.active)
-                .removeClass("ui-corner-all")
-                .addClass("ui-corner-bottom");
+                .removeClass("corner-all")
+                .addClass("corner-bottom");
 
             $(target.activeSelection)
-                .removeClass("ui-corner-left")
-                .addClass("ui-corner-bl");
+                .removeClass("corner-left")
+                .addClass("corner-bl");
 
             $(target.items)
-                .addClass("ui-corner-top")
+                .addClass("corner-top")
                 .css({
                     "top": parseInt(Math.ceil($(target.active).position().top)) - $(target.items).height() - 1,
                     "left": parseInt(Math.ceil($(target.active).position().left), 10)
@@ -374,7 +376,7 @@ To destroy the plugin call $("select").selectMenu("destroy");
 
 
             if ($(target.items).width() > $(target.active).width()) {
-                $(target.items).addClass("ui-corner-br");
+                $(target.items).addClass("corner-br");
             }
         }
 
@@ -406,32 +408,32 @@ To destroy the plugin call $("select").selectMenu("destroy");
             $(target.items)
                 .css("overflow-y", "hidden")
                 .hide("slide", { direction: "up" }, 200, function () {
-                    $(this).removeClass("ui-corner-tr");
+                    $(this).removeClass("corner-tr");
                 });
 
             $(target.activeSelection)
-                .removeClass("ui-corner-tl")
-                .addClass("ui-corner-left");
+                .removeClass("corner-tl")
+                .addClass("corner-left");
 
             $(target.active)
-                .removeClass("ui-corner-top")
-                .addClass("ui-corner-all")
+                .removeClass("corner-top")
+                .addClass("corner-all");
         }
         else {
 
             $(target.items)
                .css("overflow-y", "hidden")
                .hide("slide", { direction: "down" }, 200, function () {
-                   $(this).removeClass("ui-corner-br");
+                   $(this).removeClass("corner-br");
                });
 
             $(target.activeSelection)
-                .removeClass("ui-corner-bl")
-                .addClass("ui-corner-left");
+                .removeClass("corner-bl")
+                .addClass("corner-left");
 
             $(target.active)
-                .removeClass("ui-corner-bottom")
-                .addClass("ui-corner-all")
+                .removeClass("corner-bottom")
+                .addClass("corner-all");
         }
     }
 
@@ -443,7 +445,7 @@ To destroy the plugin call $("select").selectMenu("destroy");
 
             // append select list item to menu
             var item = document.createElement("li");
-            item.setAttribute("data-value", option.value)
+            item.setAttribute("data-value", option.value);
 
             var itemText = document.createTextNode(option.text);
             item.appendChild(itemText);
@@ -451,9 +453,15 @@ To destroy the plugin call $("select").selectMenu("destroy");
             var itemIcon;
 
             if (icon != null) {
-                itemIcon = document.createElement("i");
-                itemIcon.setAttribute("class", icon + " icon-fixed-width");
-                item.insertBefore(itemIcon, itemText);
+
+                if (icon == "empty") {
+                    item.setAttribute("class","empty");
+                }
+                else {
+                    itemIcon = document.createElement("i");
+                    itemIcon.setAttribute("class", icon + " icon-fixed-width");
+                    item.insertBefore(itemIcon, itemText);
+                }
             }
 
             list.appendChild(item);
@@ -461,13 +469,12 @@ To destroy the plugin call $("select").selectMenu("destroy");
     }
 
     // launch plugin
-    $.fn.selectMenu = function (options) {
+    $.fn.selectMenu = function(options) {
 
-        return this.each(function () {
+        return this.each(function() {
             if (!$.data(this, pluginName)) {
                 $.data(this, pluginName, new SelectMenu(this, options));
-            }
-            else if ($.isFunction(SelectMenu.prototype[options])) {
+            } else if ($.isFunction(SelectMenu.prototype[options])) {
 
                 $.data(this, pluginName)[options]();
 
@@ -477,21 +484,22 @@ To destroy the plugin call $("select").selectMenu("destroy");
                 }
             }
         });
-    }
+    };
 
     // defaults
     $.fn.selectMenu.defaults = {
-
         width: 220,
         menuWidth: 220,
+        height: 250,
         direction: "down",
         icon: "icon-chevron-down",
         position:
-            {
-                left: 0,
-                top: 0
-            },
-        onSelect: function () { }
-    }
+        {
+            left: 0,
+            top: 0
+        },
+        onSelect: function() {
+        }
+    };
 
 }(jQuery, window, document));
